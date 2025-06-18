@@ -1,12 +1,14 @@
-import React from 'react';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '@/lib/firebase';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import React from 'react'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '@/lib/firebase'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { debugFirebaseConfig } from '@/utils/firebase-debug'
+import { logFirebaseStatus } from '@/utils/firebase-status'
 
 interface LoginFormProps {
-  onToggleMode: () => void;
+  onToggleMode?: () => void;
 }
 
 export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
@@ -16,18 +18,59 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
   const [error, setError] = React.useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
+    e.preventDefault()
+    setLoading(true)
+    setError('')
+
+    // Debug Firebase configuration
+    debugFirebaseConfig()
+    logFirebaseStatus()
+    console.log('Attempting to sign in with:', { email, passwordLength: password.length })
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-    } catch (err: any) {
-      setError(err.message);
+      const result = await signInWithEmailAndPassword(auth, email, password)
+      console.log('Login successful:', result.user.uid)
+    } catch (err: unknown) {
+      console.error('Login error:', err)
+      
+      if (err instanceof Error) {
+        // Firebase Auth errors have specific error codes
+        if ('code' in err) {
+          const firebaseError = err as { code: string; message: string }
+          console.error('Firebase error code:', firebaseError.code)
+          
+          switch (firebaseError.code) {
+            case 'auth/user-not-found':
+              setError('No account found with this email address. Please check your email or create an account.')
+              break
+            case 'auth/wrong-password':
+              setError('Incorrect password. Please try again.')
+              break
+            case 'auth/invalid-email':
+              setError('Please enter a valid email address.')
+              break
+            case 'auth/user-disabled':
+              setError('This account has been disabled. Please contact support.')
+              break
+            case 'auth/too-many-requests':
+              setError('Too many failed login attempts. Please try again later.')
+              break
+            case 'auth/operation-not-allowed':
+              setError('Email/password sign-in is not enabled. Please contact support.')
+              break
+            default:
+              setError(`Login failed: ${firebaseError.message}`)
+          }
+        } else {
+          setError(err.message)
+        }
+      } else {
+        setError('An unexpected error occurred during login.')
+      }
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <div className="w-full space-y-8">
@@ -83,9 +126,15 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
         <p className="text-sm text-muted-foreground mb-2">
           Don't have an account yet?
         </p>
-        <Button variant="link" onClick={onToggleMode} className="text-primary font-medium">
-          Create an account
-        </Button>
+        {onToggleMode ? (
+          <Button variant="link" onClick={onToggleMode} className="text-primary font-medium">
+            Create an account
+          </Button>
+        ) : (
+          <a href="/register" className="text-primary font-medium hover:underline">
+            Create an account
+          </a>
+        )}
       </div>
     </div>
   );
