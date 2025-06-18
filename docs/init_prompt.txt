@@ -1,0 +1,19 @@
+I need to set up a new TypeScript React project. Please create a basic TypeScript React application using Vite.
+
+After the initial project setup, I need the following essential libraries installed and configured:
+
+1.  **Firebase:** For backend services (authentication, database).
+2.  **Firebase Authentication UI (e.g., `react-firebase-hooks` or `firebaseui-react`):** For user login/authentication. Please recommend and set up a suitable one.
+3.  **Zod:** For schema validation.
+4.  **Shadcn UI (Form component and its dependencies):** I want to use `shadcn-ui/form`. Please ensure all necessary dependencies for `shadcn-ui` and specifically its form component (like `react-hook-form` and `@hookform/resolvers`) are installed and configured.
+5.  **Tailwind CSS:** For styling, including full setup (PostCSS, Autoprefixer, tailwind.config.js, and integrating it into index.css/App.css/globals.css).
+6.  **React Icons:** For a collection of popular icons.
+
+Please provide a detailed plan before executing, including:
+* The command(s) to create the TypeScript React project using Vite.
+* The command(s) to install each specified library and its necessary peer dependencies.
+* The steps to configure each library (Firebase initialization, basic authentication setup, Zod integration example, Shadcn UI setup including `components.json` and utility functions, and Tailwind CSS configuration).
+* Any necessary modifications to `src/main.tsx`, `src/App.tsx`, or `src/lib/utils.ts` for initial setup of these libraries.
+* **Crucially, please also set up a basic example of a form using `shadcn-ui/form`, `react-hook-form`, and `zod` in `src/components/playground/FormExample.tsx` and integrate it into `App.tsx` for immediate testing.**
+
+Assume I am in the directory where I want the project folder to be created.

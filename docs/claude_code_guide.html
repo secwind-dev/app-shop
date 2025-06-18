@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="th">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>คู่มือการใช้งาน Claude Code ใน VS Code</title>
+        <style>
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                line-height: 1.6;
+                margin: 0;
+                padding: 20px;
+                background-color: #f4f7f6;
+                color: #333;
+            }
+            .container {
+                max-width: 900px;
+                margin: auto;
+                background: #fff;
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            }
+            h1 {
+                color: #2c3e50;
+                text-align: center;
+                margin-bottom: 30px;
+                border-bottom: 2px solid #3498db;
+                padding-bottom: 10px;
+            }
+            h2 {
+                color: #34495e;
+                margin-top: 25px;
+                margin-bottom: 15px;
+                border-bottom: 1px dashed #ccc;
+                padding-bottom: 5px;
+            }
+            h3 {
+                color: #2980b9;
+                margin-top: 20px;
+                margin-bottom: 10px;
+            }
+            p {
+                margin-bottom: 10px;
+            }
+            ul {
+                list-style-type: disc;
+                margin-left: 20px;
+                margin-bottom: 15px;
+            }
+            ul ul {
+                list-style-type: circle;
+                margin-left: 20px;
+            }
+            code {
+                background-color: #e0e0e0;
+                padding: 2px 5px;
+                border-radius: 4px;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.9em;
+                color: #c0392b;
+            }
+            pre {
+                background-color: #2d2d2d;
+                color: #f8f8f2;
+                padding: 15px;
+                border-radius: 8px;
+                overflow-x: auto;
+                font-family: 'Consolas', 'Monaco', monospace;
+                font-size: 0.95em;
+                margin-bottom: 15px;
+            }
+            pre code {
+                background-color: transparent;
+                color: #f8f8f2;
+                padding: 0;
+                border-radius: 0;
+            }
+            .tip {
+                background-color: #ecf0f1;
+                border-left: 5px solid #2ecc71;
+                padding: 15px;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                border-radius: 5px;
+            }
+            .important {
+                background-color: #fcebeb;
+                border-left: 5px solid #e74c3c;
+                padding: 15px;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                border-radius: 5px;
+            }
+            .footer {
+                text-align: center;
+                margin-top: 40px;
+                padding-top: 20px;
+                border-top: 1px solid #eee;
+                color: #7f8c8d;
+                font-size: 0.9em;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>คู่มือการใช้งาน Claude Code ใน VS Code</h1>
+            <p>
+                คู่มือนี้จะแนะนำ Trick และวิธีการใช้งาน Claude Code Extension ใน
+                Visual Studio Code ให้มีประสิทธิภาพสูงสุด
+                เพื่อเป็นผู้ช่วยในการเขียนโค้ดของคุณ
+            </p>
+
+            <h2>เริ่มต้นใช้งาน Claude Code</h2>
+            <ul>
+                <li>
+                    **การติดตั้ง:**
+                    <ul>
+                        <li>เปิด VS Code</li>
+                        <li>
+                            ไปที่ Extensions (Ctrl+Shift+X หรือ Cmd+Shift+X)
+                        </li>
+                        <li>ค้นหา "Claude Code" และติดตั้ง</li>
+                    </ul>
+                </li>
+                <li>
+                    **การล็อกอิน:**
+                    <ul>
+                        <li>
+                            หลังจากติดตั้ง Claude Code จะให้คุณเลือกล็อกอิน:
+                        </li>
+                        <li>
+                            **1. Claude account with subscription:**
+                            เหมาะสำหรับผู้ใช้งานบ่อย มีราคาคงที่ (เช่น
+                            $20/เดือนสำหรับ Pro) สามารถใช้ Claude.ai ได้ด้วย
+                        </li>
+                        <li>
+                            **2. Anthropic Console account:**
+                            คิดเงินตามการใช้งานจริง (API usage billing)
+                            เหมาะสำหรับใช้งานไม่บ่อย
+                        </li>
+                        <li>
+                            หากเบราว์เซอร์ไม่เปิดอัตโนมัติ ให้คัดลอก URL
+                            ที่แสดงใน Terminal
+                            ไปวางในเบราว์เซอร์เพื่อทำการล็อกอิน
+                            และคัดลอกโค้ดที่ได้กลับมาวางใน VS Code
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    **การตั้งค่า Terminal (Terminal Setup):**
+                    <ul>
+                        <li>
+                            Claude Code จะถามว่า "Use Claude Code's terminal
+                            setup?"
+                        </li>
+                        <li>
+                            **แนะนำ:** เลือก
+                            <code>Yes, use recommended settings</code>
+                            เพื่อประสบการณ์การเขียนโค้ดที่ดีที่สุด (เช่น
+                            <code>Shift+Enter</code> สำหรับขึ้นบรรทัดใหม่)
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    **การเรียกใช้งาน:**
+                    <ul>
+                        <li>
+                            **สำคัญ:** ควรเปิด VS Code โดยตรงจากโฟลเดอร์ Root
+                            ของโปรเจกต์ของคุณ (File > Open Folder...) เพื่อให้
+                            Claude Code
+                            สามารถเข้าถึงและเข้าใจโครงสร้างโปรเจกต์ได้ทั้งหมด
+                        </li>
+                        <li>
+                            Claude Code จะเปิด Terminal ขึ้นมาเอง
+                            พร้อมข้อความต้อนรับและคำแนะนำ
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h2>Trick & Best Practices ในการใช้งาน</h2>
+
+            <h3>1. การกำหนดบริบท (Context is King)</h3>
+            <p>
+                Claude Code
+                ทำงานได้ดีที่สุดเมื่อมันเข้าใจบริบทของโค้ดที่คุณต้องการให้มันช่วยเหลือ:
+            </p>
+            <ul>
+                <li>
+                    **เปิดไฟล์ที่เกี่ยวข้อง:** ก่อนพิมพ์ Prompt ให้ Claude
+                    ช่วยเหลือ ตรวจสอบให้แน่ใจว่าไฟล์โค้ดที่คุณต้องการให้ Claude
+                    ทำงานด้วยถูกเปิดใน VS Code และเป็นไฟล์ Active
+                    (ที่กำลังแสดงผลอยู่) Claude
+                    จะใช้ข้อมูลจากไฟล์ที่เปิดอยู่เป็นหลัก
+                </li>
+                <li>
+                    **เปิดโฟลเดอร์โปรเจกต์:** ควรเปิด VS Code โดยตรงที่ Root
+                    ของโฟลเดอร์โปรเจกต์ของคุณ (File > Open Folder...)
+                    การทำเช่นนี้ช่วยให้ Claude เข้าใจโครงสร้างโปรเจกต์,
+                    dependencies (จาก <code>package.json</code>), และไฟล์อื่นๆ
+                    ที่เกี่ยวข้อง
+                </li>
+                <li>
+                    **เลือกโค้ดบล็อก:** สำหรับบางคำสั่ง (เช่น
+                    <code>&gt; explain</code>, <code>&gt; refactor</code>)
+                    คุณสามารถเลือก (Highlight) โค้ดบล็อกที่คุณต้องการให้ Claude
+                    โฟกัสก่อนที่จะพิมพ์คำสั่งได้ ทำให้ Claude
+                    ทำงานได้ตรงจุดมากขึ้น
+                </li>
+            </ul>
+
+            <h3>2. Prompting ที่มีประสิทธิภาพ</h3>
+            <p>
+                การเขียน Prompt ที่ดีคือกุญแจสำคัญในการดึงศักยภาพของ Claude Code
+                ออกมา:
+            </p>
+            <ul>
+                <li>
+                    **ชัดเจนและเฉพาะเจาะจง:**
+                    <p><strong>ไม่ดี:</strong> "แก้ไขบั๊กนี้"</p>
+                    <p>
+                        <strong>ดีกว่า:</strong>
+                        "บั๊กนี้เกิดขึ้นเมื่อผู้ใช้ล็อกอินด้วยข้อมูลที่ไม่ถูกต้อง
+                        และคาดว่าจะแสดงข้อความ error แต่กลับไม่มีอะไรเกิดขึ้น
+                        โปรดตรวจสอบฟังก์ชัน <code>handleLogin</code> ในไฟล์
+                        <code>auth.ts</code> เพื่อหาและแก้ไขปัญหานี้"
+                    </p>
+                </li>
+                <li>
+                    **ระบุ Output ที่คาดหวัง:** คุณต้องการโค้ดที่แก้ไขแล้ว?
+                    คำอธิบาย? หรือชุดของขั้นตอนในการแก้ไข? ระบุให้ชัดเจน
+                </li>
+                <li>
+                    **ให้ตัวอย่าง (ถ้าเป็นไปได้):**
+                    ถ้ามีโค้ดตัวอย่างที่คล้ายกับสิ่งที่คุณต้องการ
+                    หรือตัวอย่างของ Input/Output ที่คาดหวัง จะช่วยให้ Claude
+                    เข้าใจได้ดีขึ้น
+                </li>
+                <li>
+                    **แบ่งเป็นขั้นตอนเล็กๆ:** สำหรับงานที่ซับซ้อน
+                    แทนที่จะขอให้ทำทั้งหมดในครั้งเดียว ลองแบ่งเป็น Prompt เล็กๆ
+                    เช่น "ขั้นแรก สร้างโครงสร้างไฟล์สำหรับ feature X" จากนั้น
+                    "ขั้นที่สอง เขียนโค้ดสำหรับ component Y ในไฟล์นั้น"
+                </li>
+                <li>
+                    **ใช้คำสั่งนำหน้า (Prefix Commands):** Claude Code
+                    มีคำสั่งนำหน้าที่ช่วยกำหนดประเภทของงานใน Terminal
+                    (พิมพ์แล้วกด Space):
+                    <ul>
+                        <li>
+                            <code>&gt; try "..."</code>: ลองแก้ไข/ทำบางอย่าง
+                        </li>
+                        <li>
+                            <code>&gt; explain "..."</code>:
+                            อธิบายโค้ดหรือแนวคิด
+                        </li>
+                        <li><code>&gt; generate "..."</code>: สร้างโค้ดใหม่</li>
+                        <li><code>&gt; refactor "..."</code>: ปรับปรุงโค้ด</li>
+                        <li><code>&gt; debug "..."</code>: ช่วยดีบักปัญหา</li>
+                        <li>
+                            <code>&gt; ask "..."</code>:
+                            ถามคำถามทั่วไปเกี่ยวกับโค้ด/แนวคิด
+                        </li>
+                        <li>
+                            <code>?</code>: พิมพ์ <code>?</code> แล้วกด Enter
+                            เพื่อดู Shortcut และคำสั่งเพิ่มเติม
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="tip">
+                <strong>เคล็ดลับ:</strong> การพิมพ์ Prompt
+                เป็นภาษาอังกฤษมักจะได้ผลลัพธ์ที่ดีกว่า เนื่องจากโมเดล AI
+                ถูกเทรนมาด้วยข้อมูลภาษาอังกฤษจำนวนมาก
+            </div>
+
+            <h3>3. การตรวจสอบและยอมรับ/ปฏิเสธการแก้ไข</h3>
+            <ul>
+                <li>
+                    **ตรวจสอบเสมอ:** AI ไม่ได้สมบูรณ์แบบเสมอไป ตรวจสอบโค้ดที่
+                    Claude Code แนะนำอย่างละเอียดก่อนที่จะยอมรับ
+                </li>
+                <li>
+                    **ใช้ Diff View:** เมื่อ Claude Code เสนอการเปลี่ยนแปลงโค้ด
+                    มันมักจะแสดง Diff View
+                    ที่ให้คุณเห็นความแตกต่างระหว่างโค้ดเดิมและโค้ดที่เสนออย่างชัดเจน
+                    ใช้ประโยชน์จากสิ่งนี้เพื่อตรวจสอบ
+                </li>
+                <li>
+                    **ยอมรับ/ปฏิเสธอย่างระมัดระวัง:** VS Code มี UI
+                    ที่ช่วยให้คุณยอมรับ (Accept) หรือปฏิเสธ (Reject)
+                    การเปลี่ยนแปลงที่ Claude Code เสนอได้ง่าย
+                    ใช้สิ่งนี้อย่างมีสติ
+                </li>
+                <li>
+                    **ปรับแต่งก่อนยอมรับ:** บางครั้ง Claude Code
+                    อาจจะทำได้เกือบสมบูรณ์แบบ
+                    คุณสามารถแก้ไขเพิ่มเติมเองเล็กน้อยใน Diff View
+                    ก่อนที่จะยอมรับการเปลี่ยนแปลง
+                </li>
+            </ul>
+
+            <h3>4. การจัดการกับปัญหาทั่วไป</h3>
+            <ul>
+                <li>
+                    **ถ้า Claude "ติดลูป" หรือให้คำตอบที่ไม่เกี่ยวข้อง:**
+                    <ul>
+                        <li>
+                            ลองกด <code>Ctrl+C</code> (หรือ
+                            <code>Cmd+C</code> บน Mac) ใน Terminal
+                            เพื่อยกเลิกการประมวลผลปัจจุบัน
+                        </li>
+                        <li>ลอง Clear Terminal แล้วเริ่มต้น Prompt ใหม่</li>
+                        <li>
+                            ปรับปรุง Prompt
+                            ของคุณให้ชัดเจนและเฉพาะเจาะจงยิ่งขึ้น
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    **ตรวจสอบการเชื่อมต่อ:**
+                    ตรวจสอบให้แน่ใจว่าคุณยังคงเชื่อมต่อกับบัญชี Claude
+                    ของคุณอยู่ (บางครั้งอาจมีการหลุดการเชื่อมต่อ)
+                    ถ้าหลุดการเชื่อมต่อ ให้ล็อกอินใหม่
+                </li>
+                <li>
+                    **อัปเดต Extension:** ตรวจสอบให้แน่ใจว่า Claude Code
+                    Extension ของคุณเป็นเวอร์ชันล่าสุดเสมอ เพื่อให้ได้ฟีเจอร์และ
+                    Bug Fixes ล่าสุด
+                </li>
+            </ul>
+
+            <h3>5. การเรียนรู้และปรับตัว</h3>
+            <ul>
+                <li>
+                    **สังเกตพฤติกรรม:** ใช้เวลาสังเกตว่า Claude Code ตอบสนองต่อ
+                    Prompt รูปแบบต่างๆ อย่างไร
+                    สิ่งนี้จะช่วยให้คุณปรับแต่งสไตล์การ Prompt
+                    ของคุณให้มีประสิทธิภาพมากขึ้น
+                </li>
+                <li>
+                    **ลองผิดลองถูก:** อย่ากลัวที่จะลอง Prompt ที่แตกต่างกัน
+                    หรือลองให้ Claude Code ทำงานที่หลากหลาย
+                    คุณจะเรียนรู้ข้อจำกัดและจุดแข็งของมันได้จากการทดลอง
+                </li>
+            </ul>
+
+            <div class="important">
+                <strong>สำคัญ:</strong> แม้ Claude Code
+                จะเป็นผู้ช่วยที่ยอดเยี่ยม แต่ก็ไม่ควรพึ่งพา 100%
+                ควรตรวจสอบโค้ดที่ AI สร้างขึ้นเสมอ เพื่อความถูกต้อง ความปลอดภัย
+                และประสิทธิภาพ
+            </div>
+
+            <div class="footer">
+                &copy; 2024 คู่มือการใช้งาน Claude Code ใน VS Code
+            </div>
+        </div>
+    </body>
+</html>

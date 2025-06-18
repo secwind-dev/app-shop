@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+:root {
+  /* Apple-inspired color scheme - Light Mode */
+  --background: #FFFFFF;
+  --foreground: #333333;
+  
+  /* Cards and elevated surfaces */
+  --card: #FFFFFF;
+  --card-foreground: #333333;
+  
+  /* Popovers and dropdowns */
+  --popover: #FFFFFF;
+  --popover-foreground: #333333;
+  
+  /* Primary actions (Apple Blue) */
+  --primary: #007AFF;
+  --primary-foreground: #FFFFFF;
+  
+  /* Secondary surfaces */
+  --secondary: #F5F5F7;
+  --secondary-foreground: #333333;
+  
+  /* Muted/subtle elements */
+  --muted: #F2F2F2;
+  --muted-foreground: #888888;
+  
+  /* Accent elements */
+  --accent: #F5F5F7;
+  --accent-foreground: #333333;
+  
+  /* Destructive/error states */
+  --destructive: #FF3B30;
+  --destructive-foreground: #FFFFFF;
+  
+  /* Success states */
+  --success: #28CD42;
+  --success-foreground: #FFFFFF;
+  
+  /* Borders and inputs */
+  --border: #D1D1D6;
+  --input: #F2F2F2;
+  --ring: #007AFF;
+  
+  /* Border radius */
+  --radius: 0.75rem;
+}
+
+.dark {
+  /* Apple-inspired color scheme - Dark Mode */
+  --background: #000000;
+  --foreground: #FFFFFF;
+  
+  --card: #1C1C1E;
+  --card-foreground: #FFFFFF;
+  
+  --popover: #1C1C1E;
+  --popover-foreground: #FFFFFF;
+  
+  --primary: #007AFF;
+  --primary-foreground: #FFFFFF;
+  
+  --secondary: #2C2C2E;
+  --secondary-foreground: #FFFFFF;
+  
+  --muted: #1C1C1E;
+  --muted-foreground: #AEAEB2;
+  
+  --accent: #2C2C2E;
+  --accent-foreground: #FFFFFF;
+  
+  --destructive: #FF453A;
+  --destructive-foreground: #FFFFFF;
+  
+  --success: #32D74B;
+  --success-foreground: #000000;
+  
+  --border: #3A3A3C;
+  --input: #1C1C1E;
+  --ring: #007AFF;
+}
+
+/* Global styles */
+* {
+  border-color: var(--border);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Apple-inspired scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
