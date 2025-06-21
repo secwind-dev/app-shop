@@ -1,6 +1,5 @@
 import { useAuth } from '@/components/auth/AuthProvider'
 import { FormExample } from '@/components/playground/FormExample'
-import { Button } from '@/components/ui/button'
 import { LoadingSpinner } from '@/components/ui/loading'
 import { auth } from '@/lib/firebase'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
@@ -23,29 +22,6 @@ function DashboardPage() {
 
     return (
         <div className="min-h-screen bg-background">
-            <header className="border-b border-border bg-card/50 backdrop-blur-sm">
-                <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-                    <h1 className="text-2xl font-bold text-foreground tracking-tight">
-                        Shop Firebase
-                    </h1>
-                    <div className="flex items-center gap-6">
-                        <div className="text-sm text-muted-foreground">
-                            Welcome back,{' '}
-                            <span className="font-medium text-foreground">
-                                {user?.email}
-                            </span>
-                        </div>
-                        <Button
-                            variant="outline"
-                            onClick={handleSignOut}
-                            size="sm"
-                        >
-                            Sign Out
-                        </Button>
-                    </div>
-                </div>
-            </header>
-
             <main className="container mx-auto px-6 py-12">
                 <div className="max-w-5xl mx-auto">
                     <div className="text-center mb-16">
