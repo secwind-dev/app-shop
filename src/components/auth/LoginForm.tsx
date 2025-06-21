@@ -6,7 +6,6 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { debugFirebaseConfig } from '@/utils/firebase-debug'
 import { logFirebaseStatus } from '@/utils/firebase-status'
-
 interface LoginFormProps {
   onToggleMode?: () => void;
 }
@@ -29,7 +28,14 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onToggleMode }) => {
 
     try {
       const result = await signInWithEmailAndPassword(auth, email, password)
-      console.log('Login successful:', result.user.uid)
+      console.log('✅ Login successful:', result.user.uid)
+      
+      // 🎯 ไม่ต้อง redirect ที่นี่ - Guest Layout จะจัดการให้
+      console.log('🔄 Auth state changed, Guest Layout will handle redirect...')
+      
+      // Clear form
+      setEmail('')
+      setPassword('')
     } catch (err: unknown) {
       console.error('Login error:', err)
       

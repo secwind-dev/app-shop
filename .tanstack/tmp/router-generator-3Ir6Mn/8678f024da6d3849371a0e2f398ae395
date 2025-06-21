@@ -70,7 +70,7 @@ function ProductListPage() {
   )
 }
 
-export const Route = createFileRoute('/product/list')({
+export const Route = createFileRoute('/_protected/product/list')({
   component: ProductListPage,
   // Auth check ใน component แทน
 })

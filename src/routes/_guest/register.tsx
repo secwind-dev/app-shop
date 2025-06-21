@@ -1,14 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { useAuth } from '@/components/auth/AuthProvider'
 import { RegisterForm } from '@/components/auth/RegisterForm'
-import { LoadingSpinner } from '@/components/ui/loading'
 
 function RegisterPage() {
-    const { loading } = useAuth()
-
-    if (loading) {
-        return <LoadingSpinner />
-    }
+    // ไม่ต้อง auth check - Guest Layout จัดการให้แล้ว!
 
     return (
         <div className="min-h-screen bg-background flex items-center justify-center p-6">
@@ -21,7 +15,6 @@ function RegisterPage() {
     )
 }
 
-export const Route = createFileRoute('/register')({
+export const Route = createFileRoute('/_guest/register')({
     component: RegisterPage,
-    // Auth check ใน component แทน
 })
