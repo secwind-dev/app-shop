@@ -16,7 +16,9 @@
       "Bash(git push:*)",
       "WebFetch(domain:tanstack.com)",
       "Bash(rm:*)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(find:*)",
+      "Bash(npm run lint)"
     ],
     "deny": []
   }

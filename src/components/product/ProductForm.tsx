@@ -13,8 +13,8 @@ import { productSchema, type ProductFormData } from '@/lib/validations/auth'
 import { createProduct } from '@/services/product'
 import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
-import { useForm, useFieldArray } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { useNavigate } from '@tanstack/react-router'
 
 export function ProductForm() {
     const [loading, setLoading] = React.useState(false)
@@ -34,15 +34,6 @@ export function ProductForm() {
         },
     })
 
-    const { fields: imageFields, append: appendImage, remove: removeImage } = useFieldArray({
-        control: form.control,
-        name: 'images',
-    })
-
-    const { fields: optionFields, append: appendOption, remove: removeOption } = useFieldArray({
-        control: form.control,
-        name: 'options',
-    })
 
     const onSubmit = async (data: ProductFormData) => {
         setLoading(true)
@@ -62,7 +53,7 @@ export function ProductForm() {
             console.log('Product created successfully:', productId)
 
             // Redirect to dashboard or product list
-            navigate('/dashboard')
+            navigate({ to: '/dashboard' })
         } catch (err: unknown) {
             console.error('Product creation error:', err)
             setError(
@@ -237,110 +228,63 @@ export function ProductForm() {
                     </div>
 
                     {/* Images */}
-                    <div className="space-y-6">
-                        <div className="flex items-center justify-between">
-                            <h2 className="text-xl font-semibold text-foreground border-b pb-2">
-                                Product Images
-                            </h2>
-                            <Button
-                                type="button"
-                                variant="outline"
-                                size="sm"
-                                onClick={() => appendImage('')}
-                                disabled={imageFields.length >= 10}
-                            >
-                                Add Image
-                            </Button>
-                        </div>
-
-                        <div className="space-y-4">
-                            {imageFields.map((field, index) => (
-                                <div key={field.id} className="flex gap-3">
-                                    <FormField
-                                        control={form.control}
-                                        name={`images.${index}`}
-                                        render={({ field }) => (
-                                            <FormItem className="flex-1">
-                                                <FormControl>
-                                                    <Input
-                                                        placeholder="Enter image URL"
-                                                        className="text-base"
-                                                        {...field}
-                                                    />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    {imageFields.length > 1 && (
-                                        <Button
-                                            type="button"
-                                            variant="outline"
-                                            size="sm"
-                                            onClick={() => removeImage(index)}
-                                            className="text-destructive hover:text-destructive"
-                                        >
-                                            Remove
-                                        </Button>
-                                    )}
-                                </div>
-                            ))}
-                        </div>
+                    <div className="space-y-4">
+                        <h2 className="text-xl font-semibold text-foreground border-b pb-2">
+                            Product Images
+                        </h2>
+                        <FormField
+                            control={form.control}
+                            name="images"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-base font-medium text-foreground">
+                                        Image URLs (one per line)
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Textarea
+                                            placeholder="Enter image URLs, one per line"
+                                            className="text-base min-h-[100px]"
+                                            value={field.value.join('\n')}
+                                            onChange={(e) => {
+                                                const urls = e.target.value.split('\n').filter(url => url.trim())
+                                                field.onChange(urls.length > 0 ? urls : [''])
+                                            }}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
                     </div>
 
                     {/* Options */}
-                    <div className="space-y-6">
-                        <div className="flex items-center justify-between">
-                            <h2 className="text-xl font-semibold text-foreground border-b pb-2">
-                                Product Options
-                            </h2>
-                            <Button
-                                type="button"
-                                variant="outline"
-                                size="sm"
-                                onClick={() => appendOption('')}
-                            >
-                                Add Option
-                            </Button>
-                        </div>
-
-                        <div className="space-y-4">
-                            {optionFields.map((field, index) => (
-                                <div key={field.id} className="flex gap-3">
-                                    <FormField
-                                        control={form.control}
-                                        name={`options.${index}`}
-                                        render={({ field }) => (
-                                            <FormItem className="flex-1">
-                                                <FormControl>
-                                                    <Input
-                                                        placeholder="Enter option (e.g., Size: Large, Color: Red)"
-                                                        className="text-base"
-                                                        {...field}
-                                                    />
-                                                </FormControl>
-                                                <FormMessage />
-                                            </FormItem>
-                                        )}
-                                    />
-                                    <Button
-                                        type="button"
-                                        variant="outline"
-                                        size="sm"
-                                        onClick={() => removeOption(index)}
-                                        className="text-destructive hover:text-destructive"
-                                    >
-                                        Remove
-                                    </Button>
-                                </div>
-                            ))}
-                            {optionFields.length === 0 && (
-                                <p className="text-sm text-muted-foreground italic">
-                                    No options added. Click "Add Option" to
-                                    include product variants.
-                                </p>
+                    <div className="space-y-4">
+                        <h2 className="text-xl font-semibold text-foreground border-b pb-2">
+                            Product Options
+                        </h2>
+                        <FormField
+                            control={form.control}
+                            name="options"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel className="text-base font-medium text-foreground">
+                                        Options (one per line, optional)
+                                    </FormLabel>
+                                    <FormControl>
+                                        <Textarea
+                                            placeholder="Enter options, one per line (e.g., Size: Large, Color: Red)"
+                                            className="text-base min-h-[80px]"
+                                            value={field.value.join('\n')}
+                                            onChange={(e) => {
+                                                const options = e.target.value.split('\n').filter(opt => opt.trim())
+                                                field.onChange(options)
+                                            }}
+                                        />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
                             )}
-                        </div>
+                        />
                     </div>
 
                     {error && (
@@ -355,7 +299,7 @@ export function ProductForm() {
                         <Button
                             type="button"
                             variant="outline"
-                            onClick={() => navigate('/dashboard')}
+                            onClick={() => navigate({ to: '/dashboard' })}
                             className="flex-1"
                         >
                             Cancel
