@@ -5,6 +5,7 @@ import { LoadingSpinner } from '@/components/ui/loading'
 import { auth } from '@/lib/firebase'
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { signOut } from 'firebase/auth'
+import React from 'react'
 
 function DashboardPage() {
     const { user, loading } = useAuth()
@@ -19,8 +20,19 @@ function DashboardPage() {
         }
     }
 
+    // Auto-redirect หาก user ไม่ได้ login
+    React.useEffect(() => {
+        if (!loading && !user) {
+            navigate({ to: '/login' })
+        }
+    }, [user, loading, navigate])
+
     if (loading) {
         return <LoadingSpinner />
+    }
+
+    if (!user) {
+        return <LoadingSpinner message="Redirecting..." />
     }
 
     return (
@@ -72,11 +84,6 @@ function DashboardPage() {
 
 export const Route = createFileRoute('/dashboard')({
     component: DashboardPage,
-    beforeLoad: async () => {
-        // ใช้ Firebase auth state แบบ async
-        const { requireAuth } = await import('@/lib/auth-utils')
-        await requireAuth()
-    },
     loader: async () => {
         // จำลอง loading data
         await new Promise((resolve) => setTimeout(resolve, 500))
