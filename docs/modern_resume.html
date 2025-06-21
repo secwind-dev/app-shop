@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Wisanu Prayoonsuk - Professional Resume</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: 'Arial', sans-serif;
+                line-height: 1.6;
+                color: #333;
+                background: #f0f0f0;
+            }
+
+            .container {
+                max-width: 210mm;
+                margin: 20px auto;
+                background: white;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                display: grid;
+                grid-template-columns: 1fr 300px;
+                min-height: 290mm;
+            }
+
+            .left-column {
+                padding: 0;
+            }
+
+            .right-column {
+                background: #f8f9fa;
+                padding: 30px 25px;
+            }
+
+            .header {
+                background: #2c3e50;
+                color: white;
+                padding: 40px 30px;
+                grid-column: 1 / -1;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+                font-weight: bold;
+                letter-spacing: 2px;
+                margin-bottom: 10px;
+                text-transform: uppercase;
+            }
+
+            .header .title {
+                font-size: 1.1rem;
+                letter-spacing: 3px;
+                text-transform: uppercase;
+                opacity: 0.9;
+                font-weight: 300;
+            }
+
+            .main-content {
+                padding: 30px;
+            }
+
+            .section {
+                margin-bottom: 30px;
+            }
+
+            .section-title {
+                background: #e9ecef;
+                padding: 12px 0;
+                margin: 0 -30px 20px -30px;
+                padding-left: 30px;
+                font-size: 1.1rem;
+                font-weight: bold;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: #2c3e50;
+            }
+
+            .right-column .section-title {
+                background: transparent;
+                margin: 0 -25px 20px -25px;
+                padding-left: 25px;
+            }
+
+            .personal-profile p {
+                font-size: 0.95rem;
+                line-height: 1.7;
+                text-align: justify;
+                color: #555;
+            }
+
+            .experience-item {
+                margin-bottom: 25px;
+            }
+
+            .job-title {
+                font-size: 1.1rem;
+                font-weight: bold;
+                color: #2c3e50;
+                margin-bottom: 5px;
+            }
+
+            .company-duration {
+                font-size: 0.9rem;
+                color: #666;
+                font-style: italic;
+                margin-bottom: 10px;
+            }
+
+            .company-duration strong {
+                color: #2c3e50;
+            }
+
+            .achievements {
+                list-style: none;
+                padding-left: 0;
+            }
+
+            .achievements li {
+                position: relative;
+                padding-left: 20px;
+                margin-bottom: 8px;
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+
+            .achievements li:before {
+                content: '•';
+                position: absolute;
+                left: 0;
+                color: #2c3e50;
+                font-weight: bold;
+                font-size: 1.2rem;
+            }
+
+            .education-item {
+                margin-bottom: 20px;
+            }
+
+            .degree {
+                font-weight: bold;
+                color: #2c3e50;
+                margin-bottom: 3px;
+            }
+
+            .school {
+                font-size: 0.9rem;
+                color: #666;
+                margin-bottom: 8px;
+            }
+
+            .education-details {
+                font-size: 0.85rem;
+                color: #777;
+                line-height: 1.4;
+            }
+
+            .profile-photo {
+                padding: 12px;
+                background: #f8f9fa;
+                border-radius: 8px;
+                margin-bottom: 25px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #999;
+                font-size: 0.9rem;
+                position: absolute;
+                overflow: hidden;
+                top: 35px;
+                right: 340px;
+            }
+
+            .profile-photo img {
+                width: 240px;
+                height: 200px;
+                object-fit: cover;
+            }
+
+            .contact-info {
+                margin-top: 60px;
+                margin-bottom: 30px;
+            }
+
+            .contact-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 12px;
+                font-size: 0.9rem;
+            }
+
+            .contact-icon {
+                width: 20px;
+                height: 20px;
+                margin-right: 12px;
+                font-size: 1rem;
+            }
+
+            .skills-list {
+                list-style: none;
+            }
+
+            .skills-list li {
+                position: relative;
+                padding-left: 20px;
+                margin-bottom: 8px;
+                font-size: 0.9rem;
+            }
+
+            .skills-list li:before {
+                content: '▪';
+                position: absolute;
+                left: 0;
+                color: #2c3e50;
+                font-weight: bold;
+            }
+
+            .awards-list {
+                list-style: none;
+            }
+
+            .awards-list li {
+                position: relative;
+                padding-left: 25px;
+                margin-bottom: 12px;
+                font-size: 0.85rem;
+                line-height: 1.4;
+            }
+
+            .awards-list li:before {
+                content: '🏆';
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+
+            @media print {
+                body {
+                    background: white;
+                }
+                .container {
+                    box-shadow: none;
+                    margin: 0;
+                    max-width: none;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .container {
+                    grid-template-columns: 1fr;
+                    margin: 10px;
+                }
+
+                .header h1 {
+                    font-size: 2.2rem;
+                }
+
+                .section-title {
+                    margin-left: -20px !important;
+                    margin-right: -20px !important;
+                    padding-left: 20px !important;
+                }
+
+                .main-content {
+                    padding: 20px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <h1>Wisanu Prayoonsuk</h1>
+                <div class="title">lead frontend developer</div>
+            </div>
+            <div class="left-column">
+                <div class="main-content">
+                    <div class="section">
+                        <div class="section-title">Personal Profile</div>
+                        <div class="personal-profile">
+                            <p>
+                                I am a Full Stack Developer with comprehensive
+                                knowledge of modern web technologies including
+                                ReactJS, NextJS, TypeScript, and Golang. I am
+                                also experienced in coordinating with
+                                cross-functional teams and delivering
+                                high-quality software solutions that meet
+                                business requirements and exceed user
+                                expectations.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">Work Experience</div>
+
+                        <div class="experience-item">
+                            <div class="job-title">
+                                Senior Full Stack Developer
+                            </div>
+                            <div class="company-duration">
+                                <strong>AMN Corp LTD.</strong> | Mar 2019 - Feb
+                                2021
+                            </div>
+                            <ul class="achievements">
+                                <li>
+                                    Designed and developed a comprehensive
+                                    knowledge management platform using ReactJS,
+                                    TypeScript, and Golang
+                                </li>
+                                <li>
+                                    Built scalable microservices architecture
+                                    serving 500+ concurrent users
+                                </li>
+                                <li>
+                                    Implemented real-time data extraction agents
+                                    and analytics dashboard
+                                </li>
+                                <li>
+                                    Developed applications for government
+                                    clients including Royal Thai Police and Thai
+                                    Red Cross Society
+                                </li>
+                                <li>
+                                    Led cross-functional collaboration with
+                                    product managers, designers, and QA
+                                    engineers
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="experience-item">
+                            <div class="job-title">Full Stack Developer</div>
+                            <div class="company-duration">
+                                <strong>A BIG CENTER, BKK</strong> | Mar 2016 -
+                                Nov 2018
+                            </div>
+                            <ul class="achievements">
+                                <li>
+                                    Developed full-stack applications using
+                                    modern JavaScript frameworks and libraries
+                                </li>
+                                <li>
+                                    Implemented RESTful APIs and database
+                                    solutions with optimal performance
+                                </li>
+                                <li>
+                                    Collaborated with development teams to
+                                    deliver high-quality software solutions
+                                </li>
+                                <li>
+                                    Mentored junior developers and established
+                                    coding best practices
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <div class="section-title">Educational History</div>
+
+                        <div class="education-item">
+                            <div class="degree">Bachelor of Arts</div>
+                            <div class="school">
+                                Rajabhat Rajanagarindra University
+                            </div>
+                            <div class="company-duration">
+                                Jan 2008 - Dec 2012
+                            </div>
+                            <div class="education-details">
+                                • Focused on comprehensive liberal arts
+                                education<br />
+                                • Developed strong analytical and communication
+                                skills<br />
+                                • Participated in various academic projects and
+                                presentations
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-column">
+                <div class="profile-photo">
+                    <!-- <span>Profile Photo</span> -->
+                    <img src="./avatar1.jpg" />
+                </div>
+
+                <div class="contact-info">
+                    <div class="section-title">Contact Me At</div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div>091-787-9494</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div>secwind.dev@gmail.com</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🌐</div>
+                        <div>https://github.com/secwind-dev</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>Bangkok, Thailand</div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Personal Data</div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🎂</div>
+                        <div>January 15, 1990</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">👤</div>
+                        <div>Male</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🏠</div>
+                        <div>Single</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🆔</div>
+                        <div>Thai Citizen</div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Skills Summary</div>
+                    <ul class="skills-list">
+                        <li>ReactJS & NextJS</li>
+                        <li>TypeScript & JavaScript</li>
+                        <li>Golang Development</li>
+                        <li>Node.js & Express</li>
+                        <li>Database Design (MySQL, PostgreSQL)</li>
+                        <li>RESTful API Development</li>
+                        <li>Git Version Control</li>
+                        <li>Agile Methodologies</li>
+                        <li>Cloud Services (AWS, Firebase)</li>
+                        <li>Docker & Containerization</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <div class="section-title">Awards Received</div>
+                    <ul class="awards-list">
+                        <li>
+                            Outstanding Performance Award, AMN Corp LTD. (2020)
+                        </li>
+                        <li>Best Team Collaboration, A BIG CENTER (2018)</li>
+                        <li>Excellence in Software Development (2017)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
