@@ -1,5 +1,5 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router'
-import { TanStackRouterDevtools } from '@tanstack/router-devtools'
+import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
 import { AuthProvider } from '@/components/auth/AuthProvider'
 import { LoadingSpinner } from '@/components/ui/loading'
 
