@@ -1,19 +1,12 @@
 import { Button } from '@/components/ui/button'
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { registerSchema, type RegisterFormData } from '@/lib/validations/auth'
 import { registerUser } from '@/services/auth'
 import { debugFirebaseConfig } from '@/utils/firebase-debug'
-import { zodResolver } from '@hookform/resolvers/zod'
 import React from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm } from '@tanstack/react-form'
+import { zodValidator } from '@tanstack/zod-form-adapter'
 
 interface RegisterFormProps {
     onToggleMode?: () => void
@@ -23,36 +16,39 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onToggleMode }) => {
     const [loading, setLoading] = React.useState(false)
     const [error, setError] = React.useState('')
 
-    const form = useForm<RegisterFormData>({
-        resolver: zodResolver(registerSchema),
+    const form = useForm({
         defaultValues: {
             username: '',
             email: '',
             password: '',
             confirmPassword: '',
+        } as RegisterFormData,
+        onSubmit: async ({ value }) => {
+            setLoading(true)
+            setError('')
+
+            // Debug Firebase configuration
+            debugFirebaseConfig()
+
+            try {
+                await registerUser(value)
+            } catch (err: unknown) {
+                console.error('Registration form error:', err)
+                setError(
+                    err instanceof Error
+                        ? err.message
+                        : 'An error occurred during registration'
+                )
+            } finally {
+                setLoading(false)
+            }
+        },
+        validatorAdapter: zodValidator,
+        validators: {
+            onChange: registerSchema,
         },
     })
 
-    const onSubmit = async (data: RegisterFormData) => {
-        setLoading(true)
-        setError('')
-
-        // Debug Firebase configuration
-        debugFirebaseConfig()
-
-        try {
-            await registerUser(data)
-        } catch (err: unknown) {
-            console.error('Registration form error:', err)
-            setError(
-                err instanceof Error
-                    ? err.message
-                    : 'An error occurred during registration'
-            )
-        } finally {
-            setLoading(false)
-        }
-    }
 
     return (
         <div className="w-full space-y-8">
@@ -65,91 +61,110 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onToggleMode }) => {
                 </p>
             </div>
 
-            <Form {...form}>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-6"
-                >
-                    <FormField
-                        control={form.control}
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    form.handleSubmit()
+                }}
+                className="space-y-6"
+            >
+                    <form.Field
                         name="username"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel className="text-base font-medium text-foreground">
+                        children={(field) => (
+                            <div className="space-y-2">
+                                <Label className="text-base font-medium text-foreground">
                                     Username
-                                </FormLabel>
-                                <FormControl>
-                                    <Input
-                                        placeholder="Enter your username"
-                                        className="text-base"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
+                                </Label>
+                                <Input
+                                    name={field.name}
+                                    value={field.state.value}
+                                    onBlur={field.handleBlur}
+                                    onChange={(e) => field.handleChange(e.target.value)}
+                                    placeholder="Enter your username"
+                                    className="text-base"
+                                />
+                                {field.state.meta.touchedErrors ? (
+                                    <p className="text-sm text-destructive">
+                                        {field.state.meta.touchedErrors}
+                                    </p>
+                                ) : null}
+                            </div>
                         )}
                     />
 
-                    <FormField
-                        control={form.control}
+                    <form.Field
                         name="email"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel className="text-base font-medium text-foreground">
+                        children={(field) => (
+                            <div className="space-y-2">
+                                <Label className="text-base font-medium text-foreground">
                                     Email Address
-                                </FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type="email"
-                                        placeholder="Enter your email address"
-                                        className="text-base"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
+                                </Label>
+                                <Input
+                                    name={field.name}
+                                    type="email"
+                                    value={field.state.value}
+                                    onBlur={field.handleBlur}
+                                    onChange={(e) => field.handleChange(e.target.value)}
+                                    placeholder="Enter your email address"
+                                    className="text-base"
+                                />
+                                {field.state.meta.touchedErrors ? (
+                                    <p className="text-sm text-destructive">
+                                        {field.state.meta.touchedErrors}
+                                    </p>
+                                ) : null}
+                            </div>
                         )}
                     />
 
-                    <FormField
-                        control={form.control}
+                    <form.Field
                         name="password"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel className="text-base font-medium text-foreground">
+                        children={(field) => (
+                            <div className="space-y-2">
+                                <Label className="text-base font-medium text-foreground">
                                     Password
-                                </FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type="password"
-                                        placeholder="Enter your password"
-                                        className="text-base"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
+                                </Label>
+                                <Input
+                                    name={field.name}
+                                    type="password"
+                                    value={field.state.value}
+                                    onBlur={field.handleBlur}
+                                    onChange={(e) => field.handleChange(e.target.value)}
+                                    placeholder="Enter your password"
+                                    className="text-base"
+                                />
+                                {field.state.meta.touchedErrors ? (
+                                    <p className="text-sm text-destructive">
+                                        {field.state.meta.touchedErrors}
+                                    </p>
+                                ) : null}
+                            </div>
                         )}
                     />
 
-                    <FormField
-                        control={form.control}
+                    <form.Field
                         name="confirmPassword"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel className="text-base font-medium text-foreground">
+                        children={(field) => (
+                            <div className="space-y-2">
+                                <Label className="text-base font-medium text-foreground">
                                     Confirm Password
-                                </FormLabel>
-                                <FormControl>
-                                    <Input
-                                        type="password"
-                                        placeholder="Confirm your password"
-                                        className="text-base"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
+                                </Label>
+                                <Input
+                                    name={field.name}
+                                    type="password"
+                                    value={field.state.value}
+                                    onBlur={field.handleBlur}
+                                    onChange={(e) => field.handleChange(e.target.value)}
+                                    placeholder="Confirm your password"
+                                    className="text-base"
+                                />
+                                {field.state.meta.touchedErrors ? (
+                                    <p className="text-sm text-destructive">
+                                        {field.state.meta.touchedErrors}
+                                    </p>
+                                ) : null}
+                            </div>
                         )}
                     />
 
@@ -176,8 +191,7 @@ export const RegisterForm: React.FC<RegisterFormProps> = ({ onToggleMode }) => {
                             'Create Account'
                         )}
                     </Button>
-                </form>
-            </Form>
+            </form>
 
             {onToggleMode && (
                 <div className="text-center pt-4">

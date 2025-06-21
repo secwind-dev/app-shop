@@ -10,17 +10,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@hookform/resolvers": "^5.1.1",
     "@radix-ui/react-label": "^2.1.7",
     "@radix-ui/react-slot": "^1.2.3",
+    "@tanstack/react-form": "^1.12.3",
     "@tanstack/react-router": "^1.121.27",
+    "@tanstack/zod-form-adapter": "^0.42.1",
+    "adc-directive": "^1.5.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "firebase": "^11.9.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-firebase-hooks": "^5.1.1",
-    "react-hook-form": "^7.58.1",
     "react-icons": "^5.5.0",
     "tailwind-merge": "^3.3.1",
     "zod": "^3.25.67"
