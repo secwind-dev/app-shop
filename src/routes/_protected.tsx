@@ -107,7 +107,7 @@ function ProtectedLayout() {
         </div>
       </header>
 
-      <main>
+      <main className="container mx-auto px-6 py-12">
         <Outlet />
       </main>
     </div>
