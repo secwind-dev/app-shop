@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
+import { LoadingSpinnerInline } from '@/components/ui/loading'
 import { ProductCard } from './ProductCard'
 import { getProducts, type Product, type ProductFilters as Filters } from '@/services/product'
 
@@ -32,11 +33,8 @@ export function ProductList({ filters }: ProductListProps) {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-10 w-10 border-2 border-border border-t-primary mx-auto"></div>
-          <p className="mt-4 text-muted-foreground font-medium">Loading products...</p>
-        </div>
+      <div className="min-h-[400px]">
+        <LoadingSpinnerInline message="Loading products..." size="md" className="h-[400px]" />
       </div>
     )
   }

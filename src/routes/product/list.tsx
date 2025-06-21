@@ -1,12 +1,14 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { useState } from 'react'
+import React, { useState } from 'react'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { ProductList } from '@/components/product/ProductList'
 import { ProductFilters } from '@/components/product/ProductFilters'
+import { LoadingSpinner } from '@/components/ui/loading'
 import type { ProductFilters as ProductFiltersType } from '@/services/product'
 
 function ProductListPage() {
-  const { loading } = useAuth()
+  const { user, loading } = useAuth()
+  const navigate = useNavigate()
   const [filters, setFilters] = useState<ProductFiltersType>({
     sortBy: 'createdAt',
     sortOrder: 'desc'
@@ -23,15 +25,19 @@ function ProductListPage() {
     })
   }
 
+  // Auto-redirect หาก user ไม่ได้ login
+  React.useEffect(() => {
+    if (!loading && !user) {
+      navigate({ to: '/login' })
+    }
+  }, [user, loading, navigate])
+
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-10 w-10 border-2 border-border border-t-primary mx-auto"></div>
-          <p className="mt-4 text-muted-foreground font-medium">Loading...</p>
-        </div>
-      </div>
-    )
+    return <LoadingSpinner />
+  }
+
+  if (!user) {
+    return <LoadingSpinner message="Redirecting to login..." />
   }
 
   return (
@@ -66,4 +72,5 @@ function ProductListPage() {
 
 export const Route = createFileRoute('/product/list')({
   component: ProductListPage,
+  // Auth check ใน component แทน
 })

@@ -4,6 +4,7 @@ import { useAuth } from '@/components/auth/AuthProvider'
 import { LoginForm } from '@/components/auth/LoginForm'
 import { FormExample } from '@/components/playground/FormExample'
 import { Button } from '@/components/ui/button'
+import { LoadingSpinner } from '@/components/ui/loading'
 import { FaReact } from 'react-icons/fa'
 import { SiTailwindcss, SiZod, SiFirebase } from 'react-icons/si'
 
@@ -12,14 +13,7 @@ function IndexPage() {
   const [showLogin, setShowLogin] = useState(false)
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-10 w-10 border-2 border-border border-t-primary mx-auto"></div>
-          <p className="mt-4 text-muted-foreground font-medium">Loading...</p>
-        </div>
-      </div>
-    )
+    return <LoadingSpinner />
   }
 
   if (!showLogin) {
@@ -108,4 +102,5 @@ function IndexPage() {
 
 export const Route = createFileRoute('/')({
   component: IndexPage,
+  pendingComponent: () => <LoadingSpinner message="Loading page..." />,
 })

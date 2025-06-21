@@ -1,6 +1,7 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import { AuthProvider } from '@/components/auth/AuthProvider'
+import { LoadingSpinner } from '@/components/ui/loading'
 
 export const Route = createRootRoute({
   component: () => (
@@ -9,4 +10,5 @@ export const Route = createRootRoute({
       {process.env.NODE_ENV === 'development' && <TanStackRouterDevtools />}
     </AuthProvider>
   ),
+  pendingComponent: () => <LoadingSpinner message="Loading Application..." size="lg" />,
 })

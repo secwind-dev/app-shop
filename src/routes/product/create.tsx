@@ -1,19 +1,26 @@
-import { createFileRoute } from '@tanstack/react-router'
+import React from 'react'
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useAuth } from '@/components/auth/AuthProvider'
 import { ProductForm } from '@/components/product/ProductForm'
+import { LoadingSpinner } from '@/components/ui/loading'
 
 function ProductCreatePage() {
-  const { loading } = useAuth()
+  const { user, loading } = useAuth()
+  const navigate = useNavigate()
+
+  // Auto-redirect หาก user ไม่ได้ login
+  React.useEffect(() => {
+    if (!loading && !user) {
+      navigate({ to: '/login' })
+    }
+  }, [user, loading, navigate])
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-10 w-10 border-2 border-border border-t-primary mx-auto"></div>
-          <p className="mt-4 text-muted-foreground font-medium">Loading...</p>
-        </div>
-      </div>
-    )
+    return <LoadingSpinner />
+  }
+
+  if (!user) {
+    return <LoadingSpinner message="Redirecting to login..." />
   }
 
   return (
@@ -37,4 +44,5 @@ function ProductCreatePage() {
 
 export const Route = createFileRoute('/product/create')({
   component: ProductCreatePage,
+  // Auth check ใน component แทน
 })
