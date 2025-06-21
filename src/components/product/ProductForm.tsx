@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { FormField } from '@/components/ui/form-field'
 import { productSchema, type ProductFormData } from '@/lib/validations/auth'
 import { createProduct } from '@/services/product'
 import { useForm } from '@tanstack/react-form'
@@ -86,10 +86,7 @@ export function ProductForm() {
                     <form.Field
                         name="name"
                         children={(field) => (
-                            <div className="space-y-2">
-                                <Label className="text-base font-medium text-foreground">
-                                    Product Name
-                                </Label>
+                            <FormField field={field} label="Product Name">
                                 <Input
                                     name={field.name}
                                     value={field.state.value}
@@ -100,27 +97,14 @@ export function ProductForm() {
                                     placeholder="Enter product name"
                                     className="text-base"
                                 />
-                                {field.state.meta.isTouched &&
-                                field.state.meta.errors.length ? (
-                                    <p className="text-sm text-destructive">
-                                        {typeof field.state.meta.errors[0] ===
-                                        'string'
-                                            ? field.state.meta.errors[0]
-                                            : field.state.meta.errors[0]
-                                                  ?.message || 'Invalid value'}
-                                    </p>
-                                ) : null}
-                            </div>
+                            </FormField>
                         )}
                     />
 
                     <form.Field
                         name="description"
                         children={(field) => (
-                            <div className="space-y-2">
-                                <Label className="text-base font-medium text-foreground">
-                                    Description
-                                </Label>
+                            <FormField field={field} label="Description">
                                 <Textarea
                                     name={field.name}
                                     value={field.state.value}
@@ -131,17 +115,7 @@ export function ProductForm() {
                                     placeholder="Enter product description"
                                     className="text-base min-h-[120px]"
                                 />
-                                {field.state.meta.isTouched &&
-                                field.state.meta.errors.length ? (
-                                    <p className="text-sm text-destructive">
-                                        {typeof field.state.meta.errors[0] ===
-                                        'string'
-                                            ? field.state.meta.errors[0]
-                                            : field.state.meta.errors[0]
-                                                  ?.message || 'Invalid value'}
-                                    </p>
-                                ) : null}
-                            </div>
+                            </FormField>
                         )}
                     />
                 </div>
@@ -156,10 +130,7 @@ export function ProductForm() {
                         <form.Field
                             name="price"
                             children={(field) => (
-                                <div className="space-y-2">
-                                    <Label className="text-base font-medium text-foreground">
-                                        Price ($)
-                                    </Label>
+                                <FormField field={field} label="Price ($)">
                                     <Input
                                         name={field.name}
                                         type="number"
@@ -175,28 +146,14 @@ export function ProductForm() {
                                             )
                                         }
                                     />
-                                    {field.state.meta.isTouched &&
-                                    field.state.meta.errors.length ? (
-                                        <p className="text-sm text-destructive">
-                                            {typeof field.state.meta
-                                                .errors[0] === 'string'
-                                                ? field.state.meta.errors[0]
-                                                : field.state.meta.errors[0]
-                                                      ?.message ||
-                                                  'Invalid value'}
-                                        </p>
-                                    ) : null}
-                                </div>
+                                </FormField>
                             )}
                         />
 
                         <form.Field
                             name="amount"
                             children={(field) => (
-                                <div className="space-y-2">
-                                    <Label className="text-base font-medium text-foreground">
-                                        Stock Amount
-                                    </Label>
+                                <FormField field={field} label="Stock Amount">
                                     <Input
                                         name={field.name}
                                         type="number"
@@ -211,28 +168,14 @@ export function ProductForm() {
                                             )
                                         }
                                     />
-                                    {field.state.meta.isTouched &&
-                                    field.state.meta.errors.length ? (
-                                        <p className="text-sm text-destructive">
-                                            {typeof field.state.meta
-                                                .errors[0] === 'string'
-                                                ? field.state.meta.errors[0]
-                                                : field.state.meta.errors[0]
-                                                      ?.message ||
-                                                  'Invalid value'}
-                                        </p>
-                                    ) : null}
-                                </div>
+                                </FormField>
                             )}
                         />
 
                         <form.Field
                             name="discount"
                             children={(field) => (
-                                <div className="space-y-2">
-                                    <Label className="text-base font-medium text-foreground">
-                                        Discount (%)
-                                    </Label>
+                                <FormField field={field} label="Discount (%)">
                                     <Input
                                         name={field.name}
                                         type="number"
@@ -248,18 +191,7 @@ export function ProductForm() {
                                             )
                                         }
                                     />
-                                    {field.state.meta.isTouched &&
-                                    field.state.meta.errors.length ? (
-                                        <p className="text-sm text-destructive">
-                                            {typeof field.state.meta
-                                                .errors[0] === 'string'
-                                                ? field.state.meta.errors[0]
-                                                : field.state.meta.errors[0]
-                                                      ?.message ||
-                                                  'Invalid value'}
-                                        </p>
-                                    ) : null}
-                                </div>
+                                </FormField>
                             )}
                         />
                     </div>
@@ -273,10 +205,7 @@ export function ProductForm() {
                     <form.Field
                         name="images"
                         children={(field) => (
-                            <div className="space-y-2">
-                                <Label className="text-base font-medium text-foreground">
-                                    Image URLs (one per line)
-                                </Label>
+                            <FormField field={field} label="Image URLs (one per line)">
                                 <Textarea
                                     name={field.name}
                                     placeholder="Enter image URLs, one per line"
@@ -292,17 +221,7 @@ export function ProductForm() {
                                         )
                                     }}
                                 />
-                                {field.state.meta.isTouched &&
-                                field.state.meta.errors.length ? (
-                                    <p className="text-sm text-destructive">
-                                        {typeof field.state.meta.errors[0] ===
-                                        'string'
-                                            ? field.state.meta.errors[0]
-                                            : field.state.meta.errors[0]
-                                                  ?.message || 'Invalid value'}
-                                    </p>
-                                ) : null}
-                            </div>
+                            </FormField>
                         )}
                     />
                 </div>
@@ -315,13 +234,14 @@ export function ProductForm() {
                     <form.Field
                         name="options"
                         children={(field) => (
-                            <div className="space-y-2">
-                                <Label className="text-base font-medium text-foreground">
-                                    Options (one per line, optional)
-                                </Label>
+                            <FormField 
+                                field={field} 
+                                label="Options (one per line, optional)"
+                                description="e.g., Size: Large, Color: Red"
+                            >
                                 <Textarea
                                     name={field.name}
-                                    placeholder="Enter options, one per line (e.g., Size: Large, Color: Red)"
+                                    placeholder="Enter options, one per line"
                                     className="text-base min-h-[80px]"
                                     value={field.state.value.join('\n')}
                                     onBlur={field.handleBlur}
@@ -332,17 +252,7 @@ export function ProductForm() {
                                         field.handleChange(options)
                                     }}
                                 />
-                                {field.state.meta.isTouched &&
-                                field.state.meta.errors.length ? (
-                                    <p className="text-sm text-destructive">
-                                        {typeof field.state.meta.errors[0] ===
-                                        'string'
-                                            ? field.state.meta.errors[0]
-                                            : field.state.meta.errors[0]
-                                                  ?.message || 'Invalid value'}
-                                    </p>
-                                ) : null}
-                            </div>
+                            </FormField>
                         )}
                     />
                 </div>
