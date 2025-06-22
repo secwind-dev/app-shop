@@ -19,6 +19,7 @@
             }
 
             .container {
+                position: relative;
                 max-width: 210mm;
                 margin: 20px auto;
                 background: white;
@@ -89,7 +90,6 @@
             .personal-profile p {
                 font-size: 0.95rem;
                 line-height: 1.7;
-                text-align: justify;
                 color: #555;
             }
 
@@ -171,8 +171,8 @@
                 font-size: 0.9rem;
                 position: absolute;
                 overflow: hidden;
-                top: 35px;
-                right: 340px;
+                top: 20px;
+                right: 18px;
             }
 
             .profile-photo img {
@@ -273,9 +273,13 @@
     </head>
     <body>
         <div class="container">
+            <div class="profile-photo">
+                <!-- <span>Profile Photo</span> -->
+                <img src="./avatar.jpg" />
+            </div>
             <div class="header">
                 <h1>Wisanu Prayoonsuk</h1>
-                <div class="title">Lead Frontend Developer</div>
+                <div class="title">Senior Frontend Developer</div>
             </div>
             <div class="left-column">
                 <div class="main-content">
@@ -283,7 +287,7 @@
                         <div class="section-title">Personal Profile</div>
                         <div class="personal-profile">
                             <p>
-                                I am a Lead Frontend Developer with
+                                I am a Senior Frontend Developer with
                                 comprehensive knowledge of modern web
                                 technologies including React | Next TypeScript,
                                 and AI. Experienced in team leadership and
@@ -388,11 +392,6 @@
             </div>
 
             <div class="right-column">
-                <div class="profile-photo">
-                    <!-- <span>Profile Photo</span> -->
-                    <img src="./avatar1.jpg" />
-                </div>
-
                 <div class="contact-info">
                     <div class="section-title">Contact Me At</div>
                     <div class="contact-item">
@@ -406,10 +405,6 @@
                     <div class="contact-item">
                         <div class="contact-icon">🌐</div>
                         <div>https://github.com/secwind-dev</div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">📍</div>
-                        <div>Bangkok, Thailand</div>
                     </div>
                 </div>
 
@@ -427,6 +422,10 @@
                         <div class="contact-icon">🏠</div>
                         <div>Single</div>
                     </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>Bangkok, Thailand</div>
+                    </div>
                 </div>
 
                 <div class="section">
@@ -436,8 +435,10 @@
                         <li>Vue & Nuxt</li>
                         <li>TypeScript & JavaScript</li>
                         <li>RESTful APIs and GraphQL</li>
+                        <li>AI,Automation Workflow(n8n)</li>
                         <li>OOP & Functional Programming</li>
                         <li>Pure Css & Tailwind Css</li>
+                        <li>Git Control and Git Action</li>
                         <li>Testing Library(Vitest,Playwright)</li>
                     </ul>
                 </div>
